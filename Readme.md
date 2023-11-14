@@ -19,13 +19,13 @@ To build and run the Math Expression Evaluator, ensure you have Rust installed. 
 Clone this repository:
 
 ```bash
-git clone https://github.com/abdokin/math-expression-evaluator-rust.git
+git clone https://github.com/abdokin/math-expr.git
 ```
 
 Navigate to the project directory:
 
 ```bash
-cd math-expression-evaluator-rust
+cd math-expr
 ```
 
 Build and run the evaluator:
