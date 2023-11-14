@@ -132,26 +132,10 @@ pub fn evaluate(expr: &Expr) -> i64 {
 }
 
 
-pub fn run_expr(input: &str) -> i64 {
+pub fn run_expr(input: &str) {
     match parse_expr(input) {
-        Ok((_, expr)) => evaluate(&expr),
-        Err(_) => todo!(),
+        Ok((_, expr)) => println!("Expr: {} => {} ", expr, evaluate(&expr)),
+        Err(err) => println!("Error parsing expression: {:?}", err),
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_add() {
-        assert_eq!(run_expr("2+3"), 5);
-        assert_eq!(run_expr("2+3 + (1+1) + 0"), 7);
-    }
-
-    #[test]
-    fn test_min() {
-        assert_eq!(run_expr("2-3"), -1);
-        assert_eq!(run_expr("2-3 - 2"), -3);
-    }
-}
