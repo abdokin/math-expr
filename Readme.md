@@ -1,57 +1,60 @@
 # Math Expression Evaluator in Rust
 
-This is a basic Math Expression Evaluator implemented in Rust.
+This is a versatile Math Expression Evaluator implemented in Rust that offers robust functionality for handling mathematical expressions.
 
 ## Features
 
-- Evaluates simple mathematical expressions.
-- Supports addition (+), subtraction (-), multiplication (*), division (/), and parentheses for precedence.
-- Provides a command-line interface (CLI) for interactive evaluation.
+- **Basic Operations:** Evaluates simple mathematical expressions with support for addition (+), subtraction (-), multiplication (*), and division (/).
+- **Operator Precedence:** Utilizes parentheses to define the precedence of operations, ensuring accurate evaluation.
+- **Trigonometric Functions:** Includes trigonometric functions like cosine (cos), sine (sin), tangent (tan), arccosine (acos), arcsine (asin), and arctangent (atan).
+- **Interactive CLI:** Provides an interactive command-line interface for convenient expression evaluation.
 
 ## Usage
 
 ### Installation
 
-To build and run the Math Expression Evaluator, ensure you have Rust installed. If not, follow the [official Rust installation guide](https://www.rust-lang.org/tools/install).
+1. **Clone the Repository:**
 
-### Running the Evaluator
+    ```bash
+    git clone https://github.com/abdokin/math-expr.git
+    ```
 
-Clone this repository:
+2. **Navigate to the Project Directory:**
 
-```bash
-git clone https://github.com/abdokin/math-expr.git
-```
+    ```bash
+    cd math-expr
+    ```
 
-Navigate to the project directory:
+3. **Build and Run the Evaluator:**
 
-```bash
-cd math-expr
-```
-
-Build and run the evaluator:
-
-```bash
-cargo run
-```
+    ```bash
+    cargo run
+    ```
 
 ### Example Usage
 
-Once the evaluator is running, it will prompt you to enter a mathematical expression:
+1. **Running the Evaluator:**
 
-```
-Enter a mathematical expression to evaluate or type ':quit' to exit:
->> 5 + 3 * (6 - 2)
-20
->> 10 / (2 + 3) * 4
-8
->> :quit
-```
+    Once the evaluator is running, it prompts users to enter a mathematical expression:
 
-The evaluator will compute the result of the entered expression. Type `:quit` to exit the evaluator.
+    ```
+    Enter a mathematical expression to evaluate or type ':quit' to exit:
+    >> 5 + 3 * (6 - 2)
+    Result: 17
+    >> 10 / (2 + 3) * 4
+    Result: 8
+    >> cos(0) + sin(0)
+    Result: 1
+    >> :quit
+    ```
+
+2. **Exiting the Evaluator:**
+
+    To exit the evaluator, type `:quit`.
 
 ## Contributions
 
-Contributions are welcome! Feel free to open issues for suggestions or bug reports. Pull requests are also appreciated.
+Contributions, suggestions, bug reports, and enhancements are welcomed! Open issues to discuss ideas or report issues. Pull requests are appreciated.
 
 ## License
 
@@ -59,4 +62,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Feel free to expand on this README with more details about the implementation, additional features, supported expressions, performance optimizations, or any other relevant information about your Math Expression Evaluator in Rust.
+Feel free to further enrich this README with detailed explanations, usage examples, supported functions, or any other pertinent information about your Math Expression Evaluator in Rust.
