@@ -10,6 +10,8 @@ use nom::{
     IResult,
 };
 
+use crate::FUNCTION_TABLE;
+
 fn parse_number(input: &str) -> IResult<&str, Expr> {
     map(digit1, |s: &str| Expr::Number(s.parse().unwrap()))(input)
 }
@@ -89,9 +91,11 @@ pub fn parse_expr(input: &str) -> IResult<&str, Expr> {
     Ok((input, expr))
 }
 
+
+
 #[derive(Debug)]
 pub enum Expr {
-    Number(i64),
+    Number(f64),
     Add(Box<Expr>, Box<Expr>),
     Subtract(Box<Expr>, Box<Expr>),
     Multiply(Box<Expr>, Box<Expr>),
@@ -120,21 +124,34 @@ impl fmt::Display for Expr {
     }
 }
 
-pub fn evaluate(expr: &Expr) -> i64 {
+pub fn evaluate(expr: &Expr) -> Result<f64, String> {
+    // println!("Eval {:?}", expr);
     match expr {
-        Expr::Number(n) => *n,
-        Expr::Add(lhs, rhs) => evaluate(lhs) + evaluate(rhs),
-        Expr::Subtract(lhs, rhs) => evaluate(lhs) - evaluate(rhs),
-        Expr::Multiply(lhs, rhs) => evaluate(lhs) * evaluate(rhs),
-        Expr::Divide(lhs, rhs) => evaluate(lhs) / evaluate(rhs),
-        Expr::FunctionCall { name, args } => todo!(),
+        Expr::Number(n) => Ok(*n),
+        Expr::Add(lhs, rhs) => Ok(evaluate(lhs)? + evaluate(rhs)?),
+        Expr::Subtract(lhs, rhs) => Ok(evaluate(lhs)? - evaluate(rhs)?),
+        Expr::Multiply(lhs, rhs) => Ok(evaluate(lhs)? * evaluate(rhs)?),
+        Expr::Divide(lhs, rhs) => {
+            let denominator = evaluate(rhs)?;
+            if denominator == 0.0 {
+                return Err("Division by zero".to_string());
+            }
+            Ok(evaluate(lhs)? / denominator)
+        }
+        Expr::FunctionCall { name, args } => {
+            let evaluated_args: Vec<f64> = args.iter().map(|arg| evaluate(arg)).collect::<Result<_, _>>()?;
+                    FUNCTION_TABLE.evaluate_function(name, evaluated_args)
+        }
     }
 }
 
 
 pub fn run_expr(input: &str) {
     match parse_expr(input) {
-        Ok((_, expr)) => println!("Expr: {} => {} ", expr, evaluate(&expr)),
+        Ok((_, expr)) => match evaluate(&expr) {
+            Ok(result) => println!("Expr: {} => {} ", expr, result),
+            Err(err) => println!("Error evaluating expression: {:?}", err),
+        },
         Err(err) => println!("Error parsing expression: {:?}", err),
     }
 }
